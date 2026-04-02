@@ -5,6 +5,7 @@ import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import pages.*;
+import utils.ExcelUtils;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -28,23 +29,11 @@ public class CompletePurchaseClass extends BaseClass {
     // DataProvider for multiple user datasets
     @DataProvider(name = "purchaseData")
     public Object[][] getPurchaseData() {
-        return new Object[][] {
-            {
-                "standard_user", "secret_sauce", 
-                "John", "Doe", "12345",
-                "Sauce Labs Backpack", "Sauce Labs Bike Light"
-            },
-            {
-                "standard_user", "secret_sauce", 
-                "Jane", "Smith", "54321",
-                "Sauce Labs Bolt T-Shirt", "Sauce Labs Fleece Jacket"
-            },
-            {
-                "standard_user", "secret_sauce", 
-                "Alice", "Johnson", "98765",
-                "Sauce Labs Onesie", "Test.allTheThings() T-Shirt (Red)"
-            }
-        };
+        return ExcelUtils.getExcelData(
+                "src/test/resources/testdata.xlsx",
+                "Sheet1",
+                true
+        );
     }
 
     @Test(description = "Data-driven complete purchase flow with multiple datasets", 
